@@ -1,4 +1,4 @@
-name = Tripal Example: Tripal Fields
+name = Tripal Fields
 description = Provides examples for creating custom Tripal Fields.
 core = 7.x
 package = Tripal Example

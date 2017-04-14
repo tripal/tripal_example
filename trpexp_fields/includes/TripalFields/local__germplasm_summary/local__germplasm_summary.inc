@@ -1,5 +1,4 @@
 <?php
-
 class local__germplasm_summary extends ChadoField {
 
 
@@ -12,7 +11,7 @@ class local__germplasm_summary extends ChadoField {
   // --------------------------------------------------------------------------
 
   // The module that manages this field.
-  public static $module = 'kp_entities';
+  public static $module = 'trpexp_fields';
 
   // The default lable for this field.
   public static $default_label = 'Germplasm Summary';
@@ -102,17 +101,20 @@ class local__germplasm_summary extends ChadoField {
    *
    */
   public function load($entity, $details = array()) {
-    //dpm($entity, 'LOAD: entity');
-    //dpm($details, 'LOAD: details');
 
-    // We would like to load the summary statistics here...
-    // However, they depend on a Legacy Materialized View (organism_stock_count)
-    // installed with the organism module and are pulled out using a legacy
-    // function (tripal_stock_load_organism_stock_counts) from the stock module.
-    // We should likely create our own versions of these tables/function for Tripal 3.
+    // First, retrieve the chado organism_id for the current Tripal Content, as we requested.
+    $organism_id = $entity->local__germplasm_summary['und'][0]['chado-organism__organism_id'];
 
-    // Yay! Further reading shows the materialized view has been moved into
-    // Tripal 3 tripal_chado :-D. Thus we only need to query it.
+    // Then grab the information we need from the materialized view: organism_stock_count.
+    // This materialized view is provided via tripal_chado :-).
+    $results = chado_query(
+      'SELECT stock_type, num_stocks FROM {organism_stock_count} WHERE organism_id=:id ORDER BY num_stocks DESC',
+      array(':id' => $organism_id));
+    $entity->local__germplasm_summary['und'][0]['value'] = array();
+    foreach ($results as $r) {
+      $entity->local__germplasm_summary['und'][0]['value'][ $r->stock_type ] = $r->num_stocks;
+    }
+   
   }
 
 }

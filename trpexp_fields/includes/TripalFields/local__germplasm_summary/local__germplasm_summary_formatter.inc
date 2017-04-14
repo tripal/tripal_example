@@ -75,12 +75,16 @@ class local__germplasm_summary_formatter extends ChadoFieldFormatter {
     // Get the settings
     $settings = $display['settings'];
 
-    dpm($entity, 'entity');
-    dpm($items, 'items');
+    $rows = array();
+    foreach ($items[0]['value'] as $type => $count) {
+      $rows[] = array($type, number_format($count));
+    }
 
     $element[0] = array(
       '#type' => 'markup',
-      '#markup' => '<h3>My Fancy Field!!</h3>',
+      '#theme' => 'table',
+      '#header' => array('Germplasm Type', 'Number of Germplasm'),
+      '#rows' => $rows,
     );
   }
 
