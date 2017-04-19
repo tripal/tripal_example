@@ -10,6 +10,11 @@ class local__germplasm_summary_formatter extends ChadoFieldFormatter {
   // The list of field types for which this formatter is appropriate.
   public static $field_types = array('local__germplasm_summary');
 
+  // The list of default settings for this formatter.
+  public static $default_settings = array(
+    'setting1' => 'default_value',
+  );
+
   /**
    * Provides the field's setting form.
    *
