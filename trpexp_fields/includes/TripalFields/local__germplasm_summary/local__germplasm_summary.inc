@@ -100,7 +100,7 @@ class local__germplasm_summary extends ChadoField {
    *
    *
    */
-  public function load($entity, $details = array()) {
+  public function load($entity) {
 
     // First, retrieve the chado organism_id for the current Tripal Content, as we requested.
     $organism_id = $entity->local__germplasm_summary['und'][0]['chado-organism__organism_id'];
@@ -114,7 +114,7 @@ class local__germplasm_summary extends ChadoField {
     foreach ($results as $r) {
       $entity->local__germplasm_summary['und'][0]['value'][ $r->stock_type ] = $r->num_stocks;
     }
-   
+
   }
 
 }
