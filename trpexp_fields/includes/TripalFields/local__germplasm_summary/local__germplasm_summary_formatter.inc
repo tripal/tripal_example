@@ -27,24 +27,31 @@ class local__germplasm_summary_formatter extends ChadoFieldFormatter {
    * This form will not be displayed if the formatter_settings_summary()
    * function does not return anything.
    *
-   * @param $field
-   * @param $instance
-   * @param $view_mode
-   * @param $form
-   * @param $form_state
+   * param $field
+   *   The field structure being configured.
+   * param $instance
+   *   The instance structure being configured.
+   * param $view_mode
+   *   The view mode being configured.
+   * param $form
+   *   The (entire) configuration form array, which will usually have no use
+   *   here.  Typically for reference only.
+   * param $form_state
+   *   The form state of the (entire) configuration form.
    *
    * @return
    *   A Drupal Form array containing the settings form for this field.
    */
   public function settingsForm($view_mode, $form, &$form_state) {
 
+    $element = array();
     // @todo figure out how to make this work. Currently I get AJAX puke...
-    $form['setting1'] = array(
+    $element['setting1'] = array(
       '#type' => 'textfield',
       '#title' => 'Label',
     );
 
-    return $form;
+    return $element;
   }
 
   /**
