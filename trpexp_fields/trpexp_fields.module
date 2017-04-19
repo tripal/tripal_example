@@ -38,29 +38,35 @@
 function trpexp_fields_bundle_fields_info($entity_type, $bundle) {
   $fields = array();
 
-  // Germplasm Summary Field.
-  //---------------------------------
-  // Sumarizes germplasm on the organism page.
-  // First add my term.
-  tripal_insert_cvterm(array(
-    'id' => 'local:germplasm_summary',
-    'name' => 'germplasm_summary',
-    'cv_name' => 'local',
-    'definition' => 'A summary of the types of germplasm for a given organism.',
-  ));
+  // Because we are expecting data housed in Chado we can use the 'data_table'
+  // property of the bundle to determine if this bundle is really the one
+  // we want the field to be associated with.
+  if (isset($bundle->data_table) AND ($bundle->data_table == 'organism')) {
 
-  // Then describe the field defined by that term.
-  $field_name = 'local__germplasm_summary';
-  $field_type = 'local__germplasm_summary';
-  $fields[$field_name] = array(
-    'field_name' => $field_name,
-    'type' => $field_type,
-    'cardinality' => 1,
-    'locked' => TRUE,
-    'storage' => array(
-      'type' => 'field_chado_storage',
-    ),
-  );
+    // Germplasm Summary Field.
+    //---------------------------------
+    // Sumarizes germplasm on the organism page.
+    // First add my term.
+    tripal_insert_cvterm(array(
+      'id' => 'local:germplasm_summary',
+      'name' => 'germplasm_summary',
+      'cv_name' => 'local',
+      'definition' => 'A summary of the types of germplasm for a given organism.',
+    ));
+
+    // Then describe the field defined by that term.
+    $field_name = 'local__germplasm_summary';
+    $field_type = 'local__germplasm_summary';
+    $fields[$field_name] = array(
+      'field_name' => $field_name,
+      'type' => $field_type,
+      'cardinality' => 1,
+      'locked' => TRUE,
+      'storage' => array(
+        'type' => 'field_chado_storage',
+      ),
+    );
+  }
 
   return $fields;
 }
