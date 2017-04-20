@@ -9,6 +9,45 @@
  */
 
 /**
+ * Implements hook_menu().
+ */
+function trpexp_fields_menu() {
+  $items = array();
+
+/**
+  $items['tripal-example'] = array(
+    'title' => 'Tripal Examples',
+    'description' => 'Provide examples to developers.',
+    'access arguments' => array('access content'),
+  );
+*/
+
+  $items['tripal-example/fields'] = array(
+    'title' => 'Examples: Tripal Fields',
+    'description' => 'Examples on how to develop custom fields.',
+    'page callback' => 'theme',
+    'page arguments' => array( 'trpexp_fields_page' ),
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function trpexp_fields_theme($existing, $type, $theme, $path) {
+  $items = array();
+
+  $items['trpexp_fields_page'] = array(
+    'template' => 'trpexp_fields_page',
+    'path' => $path . '/theme',
+  );
+
+  return $items;
+}
+
+/**
  * Implements hook_bundle_fields_info().
  *
  * This hook tells Drupal/Tripal about your new field type. Make sure you've created the
