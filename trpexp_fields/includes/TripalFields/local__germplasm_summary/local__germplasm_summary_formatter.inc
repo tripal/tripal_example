@@ -1,9 +1,13 @@
 <?php
-
 /**
- * Provides a Formatter for the Germplasm Summary Field.
+ * @class
+ * Purpose:
+ *
+ * Display:
+ * Configuration:
  */
 class local__germplasm_summary_formatter extends ChadoFieldFormatter {
+
   // The default lable for this field.
   public static $default_label = 'Germplasm Summary';
 
@@ -57,6 +61,7 @@ class local__germplasm_summary_formatter extends ChadoFieldFormatter {
     );
 
     return $element;
+
   }
 
   /**
@@ -84,6 +89,7 @@ class local__germplasm_summary_formatter extends ChadoFieldFormatter {
    *    hook_field_formatter_view() function.
    */
   public function view(&$element, $entity_type, $entity, $langcode, $items, $display) {
+
     // Get the settings
     $settings = $display['settings'];
 
@@ -98,6 +104,7 @@ class local__germplasm_summary_formatter extends ChadoFieldFormatter {
       '#header' => array('Germplasm Type', 'Number of Germplasm'),
       '#rows' => $rows,
     );
+
   }
 
   /**
@@ -130,4 +137,5 @@ class local__germplasm_summary_formatter extends ChadoFieldFormatter {
   public function settingsSummary($view_mode) {
     return 'Germplasm Summary';
   }
+
 }

@@ -1,6 +1,12 @@
 <?php
+/** 
+ * @class
+ * Purpose:
+ *
+ * Data:
+ * Assumptions:
+ */
 class local__germplasm_summary extends ChadoField {
-
 
   // --------------------------------------------------------------------------
   //                     EDITABLE STATIC CONSTANTS
@@ -10,22 +16,35 @@ class local__germplasm_summary extends ChadoField {
   // the field and it's default widget and formatter.
   // --------------------------------------------------------------------------
 
-  // The module that manages this field.
-  public static $module = 'trpexp_fields';
-
   // The default lable for this field.
   public static $default_label = 'Germplasm Summary';
 
   // The default description for this field.
-  public static $description = 'Summarizes germplasm for an organism.';
+  public static $default_description = 'Summarizes the stocks for a given organism.';
 
-  // A list of global settings. These can be accessed witihn the
+  // The default widget for this field.
+  public static $default_widget = 'local__germplasm_summary_widget';
+
+  // The default formatter for this field.
+  public static $default_formatter = 'local__germplasm_summary_formatter';
+
+  // The module that manages this field.
+  public static $module = 'trpexp_fields';
+
+  // A list of global settings. These can be accessed within the
   // globalSettingsForm.  When the globalSettingsForm is submitted then
   // Drupal will automatically change these settings for all fields.
   // Once instances exist for a field type then these settings cannot be
   // changed.
   public static $default_settings = array(
     'storage' => 'field_chado_storage',
+     // It is expected that all fields set a 'value' in the load() function.
+     // In many cases, the value may be an associative array of key/value pairs.
+     // In order for Tripal to provide context for all data, the keys should
+     // be a controlled vocabulary term (e.g. rdfs:type). Keys in the load()
+     // function that are supported by the query() function should be
+     // listed here.
+     'searchable_keys' => array(),
   );
 
   // Provide a list of instance specific settings. These can be access within
@@ -35,17 +54,22 @@ class local__germplasm_summary extends ChadoField {
   // If you override this variable in a child class be sure to replicate the
   // term_name, term_vocab, term_accession and term_fixed keys as these are
   // required for all TripalFields.
-  public static $default_instance_settings  = array(
+  public static $default_instance_settings = array(
     // The short name for the vocabulary (e.g. shcema, SO, GO, PATO, etc.).
     'term_vocabulary' => 'local',
     // The name of the term.
     'term_name' => 'germplasm_summary',
     // The unique ID (i.e. accession) of the term.
     'term_accession' => 'germplasm_summary',
-    // Set to TRUE if the site admin is allowed to change the term
-    // type. This will create form elements when editing the field instance
-    // to allow the site admin to change the term settings above.
+    // Set to TRUE if the site admin is not allowed to change the term
+    // type, otherwise the admin can change the term mapped to a field.
     'term_fixed' => FALSE,
+    // Indicates if this field should be automatically attached to display
+    // or web services or if this field should be loaded separately. This
+    // is convenient for speed.  Fields that are slow should for loading
+    // should ahve auto_attach set to FALSE so tha their values can be
+    // attached asyncronously.
+    'auto_attach' => FALSE,
     // The table in Chado that the instance maps to.
     'chado_table' => 'organism',
     // The column of the table in Chado where the value of the field comes from.
@@ -54,29 +78,22 @@ class local__germplasm_summary extends ChadoField {
     'base_table' => 'organism',
   );
 
+  // A boolean specifying that users should not be allowed to create
+  // fields and instances of this field type through the UI. Such
+  // fields can only be created programmatically with field_create_field()
+  // and field_create_instance().
+  public static $no_ui = TRUE;
 
-  // The default widget for this field.
-  public static $default_widget = 'local__germplasm_summary_widget';
+  // A boolean specifying that the field will not contain any data. This
+  // should exclude the field from web serivces or downloads.  An example
+  // could be a quick search field that appears on the page that redirects
+  // the user but otherwise provides no data.
+  public static $no_data = FALSE;
 
-  // The default formatter for this field.
-  public static $default_formatter = 'local__germplasm_summary_formatter';
-
-  // --------------------------------------------------------------------------
-  //              PROTECTED CLASS MEMBERS -- DO NOT OVERRIDE
-  // --------------------------------------------------------------------------
-  // An array containing details about the field. The format of this array
-  // is the same as that returned by field_info_fields()
-  protected $field;
-  // An array containing details about an instance of the field. A field does
-  // not have to have an instance.  But if dealing with an instance (such as
-  // when using the widgetForm, formatterSettingsForm, etc.) it should be set.
-  protected $instance;
-
-  /**
+ /**
    * Loads the field values from the underlying data store.
    *
    * @param $entity
-   * @param $details
    *
    * @return
    *   An array of the following format:
@@ -102,6 +119,12 @@ class local__germplasm_summary extends ChadoField {
    */
   public function load($entity) {
 
+    // ChadoFields automatically load the chado column specified in the
+    // default settings above. If that is all you need then you don't even
+    // need to implement this function. However, if you need to add any
+    // additional data to be used in the display, you should add it here.
+    parent::load($entity);
+
     // First, retrieve the chado organism_id for the current Tripal Content, as we requested.
     $organism_id = $entity->local__germplasm_summary['und'][0]['chado-organism__organism_id'];
 
@@ -116,5 +139,4 @@ class local__germplasm_summary extends ChadoField {
     }
 
   }
-
 }
