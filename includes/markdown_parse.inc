@@ -25,9 +25,10 @@ function trp_render_as_markdown($markdown_file) {
   drupal_add_js(drupal_get_path('module', 'trpexp_fields') . '/../includes/callParseMarkdown.js');
 
   // Render the content Markdown but embed within our convert tag.
-  $output = '<div class="markdown-content">';
+  // We use the script tag to make sure html is not escaped at this point.
+  $output = '<script class="markdown-content" type="text/template">';
   $output .= file_get_contents($markdown_file);
-  $output .= '</div>';
+  $output .= '</script>';
 
   return $output;
 

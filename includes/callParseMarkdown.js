@@ -5,11 +5,14 @@
       // Intialize the converted.
       var converter = new showdown.Converter();
 
+      // Ensure underscores are not removed.
+      converter.setOption('literalMidWordUnderscores', true);
+
       // Convert the content of .markdown-content.
-      var html = converter.makeHtml( $('#content div.markdown-content').html()  );
+      var html = converter.makeHtml( $('#content script.markdown-content').html()  );
 
       // Replace the original markdown with the resultant HTML.
-      $('#content div.markdown-content').replaceWith(html);
+      $('#content script.markdown-content').replaceWith(html);
 
     }
   };
