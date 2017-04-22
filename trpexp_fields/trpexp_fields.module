@@ -8,19 +8,13 @@
  * "Page" content type is a field instance of the textarea field type.
  */
 
+include(drupal_get_path('module', 'trpexp_fields') . '/../includes/markdown_parse.inc');
+
 /**
  * Implements hook_menu().
  */
 function trpexp_fields_menu() {
   $items = array();
-
-/**
-  $items['tripal-example'] = array(
-    'title' => 'Tripal Examples',
-    'description' => 'Provide examples to developers.',
-    'access arguments' => array('access content'),
-  );
-*/
 
   $items['tripal-example/fields'] = array(
     'title' => 'Examples: Tripal Fields',
@@ -28,6 +22,15 @@ function trpexp_fields_menu() {
     'page callback' => 'theme',
     'page arguments' => array( 'trpexp_fields_page' ),
     'access arguments' => array('access content'),
+  );
+
+  $items['tripal-example/fields/custom-field'] = array(
+    'title' => 'Custom TripalField',
+    'description' => 'Custom Tripal Field, Widget & Formatter',
+    'page callback' => 'theme',
+    'page arguments' => array( 'trpexp_fields_custom_field_page' ),
+    'access arguments' => array('access content'),
+    'delivery callback' => 'trp_render_as_markdown',
   );
 
   return $items;
@@ -41,6 +44,11 @@ function trpexp_fields_theme($existing, $type, $theme, $path) {
 
   $items['trpexp_fields_page'] = array(
     'template' => 'trpexp_fields_page',
+    'path' => $path . '/theme',
+  );
+
+  $items['trpexp_fields_custom_field_page'] = array(
+    'template' => 'trpexp_fields_custom_field',
     'path' => $path . '/theme',
   );
 
