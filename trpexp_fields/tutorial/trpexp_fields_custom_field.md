@@ -5,7 +5,7 @@ The best way to add new content to a Tripal Content Type(s) is to create a custo
  - a default widget to block editing of the summary info and 
  - a custom field formatter to display the summary as a table.
 
-## Choosing Ontology Terms.
+## 1. Choosing Ontology Terms.
 In Tripal 3 all fields are associated to an ontolgy term which is reflected in the name of the field itself. As such, before we can begin writing the code for our custom field, we first need to determine what term to use to describe it. 
 
 > **Convention**: Fields are named based on their ontolgoy term: [cv name]__[cvterm name]. Thus our field will be named "local__germplasm_summary", since our ontology term is "germplasm_summary" from the "local" vocabulary.
@@ -14,7 +14,7 @@ It is recommended that you find a term from a public ontology that intuitively d
 
 > **Keep in mind**: It is difficult to change the ontology term choosen above once you begin developing your field since it is named after the term. We recommend you ensure you have choosen the best term possible before moving on to the next step.
 
-## Create default classes for your custom field.
+## 2. Create default classes for your custom field.
 The first step to creating your custom field is to extend the base TripalField or ChadoField classes. If your custom field is independant of Chado then you can extend TripalField directly. However, if either of the following is true then you should extend the ChadoField classes and mark your module as dependant on tripal_chado:
 
  - you use a value stored in chado (e.g. our example uses organism.organism_id to pull out the summary information)
@@ -25,9 +25,9 @@ Based on the above criteria, we need to create a ChadoField since both our data 
 ### A. Create ChadoField classes.
 We recommend that you don't include any of your custom functionality in these classes at this point since it complicates the debugging process. As such we've created some empty extension classes distributed with this module that you can simply copy and rename during this step. To create a ChadoField, you need THREE classes:
 
-- CUSTOM_CHADOFIELD.inc: a field class to handle loading of your data
-- CUSTOM_CHADOWIDGET.inc: a widget class to handle form elements on a Tripal Content add/edit form
-- CUSTOM_CHADOFORMATTER.inc: a formatter class to handle the display of your data on a Tripal Content page
+- `CUSTOM_CHADOFIELD.inc`: a field class to handle loading of your data
+- `CUSTOM_CHADOWIDGET.inc`: a widget class to handle form elements on a Tripal Content add/edit form
+- `CUSTOM_CHADOFORMATTER.inc`: a formatter class to handle the display of your data on a Tripal Content page
 
 These classes need to be created in a specific directory in your custom module in order to facillitate smart loading by Tripal. Simply copy the above classes from this module to `[your custom module directory]/includes/TripalFields/[your field name]/` making sure that each class is named as follows: field, `[field name].inc`; widget, `[field name]_widget.inc`; formatter, `[field name]_formatter.inc`.
 
@@ -43,9 +43,9 @@ Next, edit each class and replace `CUSTOM-FIELDNAME` with the name your field. T
 ### B. Create TripalField classes.
 We recommend that you don't include any of your custom functionality in these classes at this point since it complicates the debugging process.  As such we've created some empty extension classes distributed with this module that you can simply copy and rename during this step. To create a TripalField, you need THREE classes:
 
-- CUSTOM_TRIPALFIELD.inc: a field class to handle loading of your data
-- CUSTOM_TRIPALWIDGET.inc: a widget class to handle form elements on a Tripal Content add/edit form
-- CUSTOM_TRIPALFORMATTER.inc: a formatter class to handle the display of your data on a Tripal Content page
+- `CUSTOM_TRIPALFIELD.inc`: a field class to handle loading of your data
+- `CUSTOM_TRIPALWIDGET.inc`: a widget class to handle form elements on a Tripal Content add/edit form
+- `CUSTOM_TRIPALFORMATTER.inc`: a formatter class to handle the display of your data on a Tripal Content page
 
 These classes need to be created in a specific directory in your custom module in order to facillitate smart loading by Tripal. Simply copy the above classes from this module to `[your custom module directory]/includes/TripalFields/[your field name]/` making sure that each class is named as follows: field, `[field name].inc`; widget, `[field name]_widget.inc`; formatter, `[field name]_formatter.inc`.
 
@@ -72,3 +72,9 @@ It is also advisable to add documententation to the top of these classes specify
 - Formatter: what settings you expose to allow configuration of the display
 
 For examples of good docuentation, see local__germplasm_summary.inc, local__germplasm_summary_widget.inc, local__germplasm_summary_formatter.inc.
+
+## 3. Register your custom field with Tripal/Drupal.
+
+## 4. Programmatically add your field to an existing Tripal Content Type (optional).
+
+## 5. Add custom functionality to your field, widget and formatter classes.
