@@ -33,12 +33,14 @@ These classes need to be created in a specific directory in your custom module i
 
 ```
 cd [your drupal root]/sites/all/modules
-cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_CHADOFIELD/CUSTOM_CHADOFIELD.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name].inc
-cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_CHADOFIELD/CUSTOM_CHADOWIDGET.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name]_widget.inc
-cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_CHADOFIELD/CUSTOM_CHADOFORMATTER.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name]_formatter.inc
+cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_CHADOFIELD.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name].inc
+cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_CHADOWIDGET.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name]_widget.inc
+cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_CHADOFORMATTER.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name]_formatter.inc
 ```
 
 Next, edit each class and replace `CUSTOM-FIELDNAME` with the name your field. Thus `class CUSTOM-FIELDNAME extends ChadoField {` becomes `class local__germplasm_summary extends ChadoField {` in our example. Notice that the widget and formatter classes have a suffix added to the name so `class CUSTOM-FIELDNAME_widget extends ChadoFieldWidget {` becomes `class local__germplasm_summary_widget extends ChadoFieldWidget {`.
+
+Also make sure to set the static constants at the top of each class to match your field.
 
 ### B. Create TripalField classes.
 We recommend that you don't include any of your custom functionality in these classes at this point since it complicates the debugging process.  As such we've created some empty extension classes distributed with this module that you can simply copy and rename during this step. To create a TripalField, you need THREE classes:
@@ -51,12 +53,14 @@ These classes need to be created in a specific directory in your custom module i
 
 ```
 cd [your drupal root]/sites/all/modules
-cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_TRIPALFIELD/CUSTOM_TRIPALFIELD.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name].inc
-cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_TRIPALFIELD/CUSTOM_TRIPALWIDGET.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name]_widget.inc
-cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_TRIPALFIELD/CUSTOM_TRIPALFORMATTER.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name]_formatter.inc
+cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_TRIPALFIELD.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name].inc
+cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_TRIPALWIDGET.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name]_widget.inc
+cp tripal_example/trpexp_fields/includes/TripalFields/CUSTOM_TRIPALFORMATTER.inc [your custom module directory]/includes/TripalFields/[your field name]/[your field name]_formatter.inc
 ```
 
 Next, edit each class and replace `CUSTOM-FIELDNAME` with the name your field. Thus `class CUSTOM-FIELDNAME extends TripalField {` becomes `class local__germplasm_summary extends TripalField {` in our example. Notice that the widget and formatter classes have a suffix added to the name so `class CUSTOM-FIELDNAME_widget extends TripalFieldWidget {` becomes `class local__germplasm_summary_widget extends TripalFieldWidget {`.
+
+Also make sure to set the static constants at the top of each class to match your field.
 
 ### Documentation
 
