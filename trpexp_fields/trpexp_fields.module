@@ -16,21 +16,22 @@ include(drupal_get_path('module', 'trpexp_fields') . '/../includes/markdown_pars
 function trpexp_fields_menu() {
   $items = array();
 
+  $tutorial_path = drupal_get_path('module', 'trpexp_fields') . '/tutorial/';
+
   $items['tripal-example/fields'] = array(
     'title' => 'Examples: Tripal Fields',
     'description' => 'Examples on how to develop custom fields.',
-    'page callback' => 'theme',
-    'page arguments' => array( 'trpexp_fields_page' ),
+    'page callback' => 'trp_render_as_markdown',
+    'page arguments' => array( $tutorial_path . 'trpexp_fields_index.md' ),
     'access arguments' => array('access content'),
   );
 
   $items['tripal-example/fields/custom-field'] = array(
-    'title' => 'Custom TripalField',
-    'description' => 'Custom Tripal Field, Widget & Formatter',
-    'page callback' => 'theme',
-    'page arguments' => array( 'trpexp_fields_custom_field_page' ),
+    'title' => 'Custom Tripal Field, Widget & Formatter',
+    'description' => 'Tutorial on how to create a custom Tripal Field, widget & formatter.',
+    'page callback' => 'trp_render_as_markdown',
+    'page arguments' => array( $tutorial_path . 'trpexp_fields_custom_field.md' ),
     'access arguments' => array('access content'),
-    'delivery callback' => 'trp_render_as_markdown',
   );
 
   return $items;

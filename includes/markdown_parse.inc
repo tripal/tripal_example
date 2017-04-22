@@ -9,14 +9,14 @@
  */
 
 /**
- * Custom Render Callback: Render template file as MarkDown.
+ * Menu Callback to render any Markdown file.
  *
  * Example of how to use this function:
  * @code
 
  * @endcode
  */
-function trp_render_as_markdown($page_callback_result) {
+function trp_render_as_markdown($markdown_file) {
 
   // Add Javascript to convert markdown to html.
   drupal_add_js('https://cdn.rawgit.com/showdownjs/showdown/1.6.3/dist/showdown.min.js');
@@ -24,7 +24,11 @@ function trp_render_as_markdown($page_callback_result) {
   // Add our script to call ShowDown on the content.
   drupal_add_js(drupal_get_path('module', 'trpexp_fields') . '/../includes/callParseMarkdown.js');
 
-  // Render the content normally but embed within our convert tag.
-  drupal_deliver_html_page('<div class="markdown-content">' . $page_callback_result . '</div>');
+  // Render the content Markdown but embed within our convert tag.
+  $output = '<div class="markdown-content">';
+  $output .= file_get_contents($markdown_file);
+  $output .= '</div>';
+
+  return $output;
 
 }
