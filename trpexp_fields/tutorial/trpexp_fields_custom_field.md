@@ -82,8 +82,7 @@ Now that we have created an outline of our custom field, we need to tell Tripal/
 
 > **Tip:** Make sure you have **cleared the cache** since adding the class files in the previous step. This allows Tripal magic to find them before you refer to them in `hook_fields_bundle_fields_info()`
 
-In addition to simply telling Tripal/Drupal about your field, `hook_fields_bundle_fields_info()` also specifies which Tripal Content Types you field should be available to. This hook is called per Tripal Content Type with the current Content Type specified in the `$bundle` paramerer. Thus you simply need to check whether the current `$bundle` described a content type you want to add your field to and if so, add details about your field to the `$fields` array that is returned by this hook.
-While this hook won't add your field to any content types, it should add your field to the "Add existing field" drop-down on the content types you specify assuming you have `$no_ui = FALSE` in your field class. ** CAN'T GET THIS TO WORK **
+In addition to simply telling Tripal/Drupal about your field, `hook_fields_bundle_fields_info()` also specifies which Tripal Content Types you field should be available to. This hook is called per Tripal Content Type with the current Content Type specified in the `$bundle` parameter. Thus you simply need to check whether the current `$bundle` describes a content type you want to add your field to and if so, add details about your field to the `$fields` array that is returned by this hook.
 
 ```
 /**
@@ -143,69 +142,9 @@ function trpexp_fields_bundle_fields_info($entity_type, $bundle) {
 }
 ```
 
-Next, we need to create an instance of our field by implementing `hook_fields_bundle_instances_info()`. This actually adds our field to the Organism Tripal Content type.
+Finally, we can test our custom field! To do this, go to Administration Toolbar > Structure > Tripal Content Types > Organism > Manage Fields. This interface allows site administrators to control which fields are available to each of their content types. You can click the "Check for new fields" link at the top of the page. You will see a green status message saying "No new fields were added." but don't be concerned --this simply refers to the fact that your field was not added programmatically to the Content Type.
 
-```
-/**
- * Implements hook_bundle_instances_info().
-  *
- * @param $entity_type
- *   This should be 'TripalEntity' for all Tripal Content.
- * @param $bundle
- *   This object describes the Type of Tripal Entity (e.g. Organism or Gene) the field
- *   instances are being created for. Thus this hook is called once per Tripal Content Type on your
- *   site. The name of the bundle is the machine name of the type (e.g. bio_data_1) and
- *   the label of the bundle (e.g. Organism) is what you see in the interface. Since the
- *   label can be changed by site admin, we suggest checking the data_table to determine
- *   if this is the entity you want to add field instances to.
- * @return
- *   An array of field instance definitions. This is where you can define the defaults
- *   for any settings you use in your field. Each entry in this array will be used to
- *   create an instance of an already existing field.
- */  
-function trpexp_fields_bundle_instances_info($entity_type, $bundle) {
-  $instances = array();
-  
-  // ORGANISM.
-  //===============
-  if (isset($bundle->data_table) AND ($bundle->data_table == 'organism')) {
-    // Germplasm Summary Field.
-    //---------------------------------
-    // Sumarizes germplasm on the organism page.
-    $field_name = 'local__germplasm_summary';
-    $field_type = 'local__germplasm_summary';
-    $instances[$field_name] =  array(
-      'field_name' => $field_name,
-      'entity_type' => $entity_type,
-      'bundle' => $bundle->name,
-      'label' => 'Germplasm Summary',
-      'description' => 'Summarizes germplasm for this organism.',
-      'required' => FALSE,
-      'settings' => array(
-        'auto_attach' => FALSE,
-        'chado_table' => $bundle->data_table,
-        'chado_column' => 'organism_id',
-        'base_table' => $bundle->data_table,
-      ),
-      'widget' => array(
-        'type' => 'local__germplasm_summary_widget',
-        'settings' => array(),
-      ),
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'type' => 'local__germplasm_summary_formatter',
-          'settings' => array(),
-        ),
-      ),
-    );
-
-  }
-
-  return $instances;
-}
-```
-
-Finally, we can test our custom field! To do this, go to Administration Toolbar > Structure > Tripal Content Types > Organism > Manage Fields. This interface allows site administrators to control, which fields are available to each of their content types. You can click the "Check for new fields" link at the top of the page. If you have implemented both hooks correctly, you should see a green status message saying `Created field: Germplasm Summary` at the top of the page and your field should show up in the list of fields!
+If you have implemented hookXXX correctly, your field should be listed in the "Add new field": "Select a field type" drop-down on the content types you specify assuming you have `$no_ui = FALSE` in your field class. Simply select your field from the drop-down, give it a name and click "Save" at the bottom of the page.
+** SEEING ERRORS :-( Page not found. **
 
 ## 5. Add custom functionality to your field, widget and formatter classes.
