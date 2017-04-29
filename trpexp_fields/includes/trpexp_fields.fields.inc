@@ -91,7 +91,7 @@ function trpexp_fields_bundle_fields_info($entity_type, $bundle) {
  */
 function trpexp_fields_bundle_instances_info($entity_type, $bundle) {
   $instances = array();
-
+/**
   // ORGANISM.
   //===============
   if (isset($bundle->data_table) AND ($bundle->data_table == 'organism')) {
@@ -128,7 +128,7 @@ function trpexp_fields_bundle_instances_info($entity_type, $bundle) {
     );
 
   }
-
+*/
   return $instances;
 }
 

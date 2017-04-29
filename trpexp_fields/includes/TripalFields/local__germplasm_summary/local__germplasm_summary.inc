@@ -82,7 +82,7 @@ class local__germplasm_summary extends ChadoField {
   // fields and instances of this field type through the UI. Such
   // fields can only be created programmatically with field_create_field()
   // and field_create_instance().
-  public static $no_ui = TRUE;
+  public static $no_ui = FALSE;
 
   // A boolean specifying that the field will not contain any data. This
   // should exclude the field from web serivces or downloads.  An example
