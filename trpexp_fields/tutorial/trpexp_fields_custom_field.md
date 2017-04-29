@@ -145,6 +145,7 @@ function trpexp_fields_bundle_fields_info($entity_type, $bundle) {
 Finally, we can test our custom field! To do this, go to Administration Toolbar > Structure > Tripal Content Types > Organism > Manage Fields. This interface allows site administrators to control which fields are available to each of their content types. You can click the "Check for new fields" link at the top of the page. You will see a green status message saying "No new fields were added." but don't be concerned --this simply refers to the fact that your field was not added programmatically to the Content Type.
 
 If you have implemented hookXXX correctly, your field should be listed in the "Add new field": "Select a field type" drop-down on the content types you specify assuming you have `$no_ui = FALSE` in your field class. Simply select your field from the drop-down, give it a name and click "Save" at the bottom of the page.
+
 ** SEEING ERRORS :-( Page not found. **
 
 ## 5. Add custom functionality to your field, widget and formatter classes.
