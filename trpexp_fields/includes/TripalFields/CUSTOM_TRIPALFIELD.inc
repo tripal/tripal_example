@@ -16,7 +16,7 @@ class CUSTOM-FIELDNAME extends TripalField {
   // the field and it's default widget and formatter.
   // --------------------------------------------------------------------------
 
-  // The default lable for this field.
+  // The default label for this field.
   public static $default_label = '';
 
   // The default description for this field.

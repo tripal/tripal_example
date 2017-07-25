@@ -3,7 +3,7 @@ The Tripal API provides a class-based Tripal Fields API for creating custom fiel
 
 The Tripal Example: Tripal Fields module provides the following examples to aid developers in creating their own custom Tripal Fields.
 
-## Alter existing field display (Comming Soon!)
+## Alter existing field display (Coming Soon!)
 This example shows you how to add a custom display to an existing Tripal/Chado Field. This is done by creating a custom <em>Tripal Field Formatter</em> and making it available to the field you would like to customize the display for. This method replaces the Tripal2 approach of creating custom template files.
 
 ## Add new content to Tripal Content Type(s)

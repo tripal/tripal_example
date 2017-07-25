@@ -2,7 +2,7 @@
   Drupal.behaviors.trpParseMarkdown = {
     attach: function (context, settings) {
 
-      // Intialize the converted.
+      // Initialize the converted.
       var converter = new showdown.Converter();
 
       // Ensure underscores are not removed.

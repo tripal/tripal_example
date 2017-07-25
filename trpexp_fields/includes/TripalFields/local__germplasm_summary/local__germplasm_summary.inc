@@ -11,12 +11,12 @@ class local__germplasm_summary extends ChadoField {
   // --------------------------------------------------------------------------
   //                     EDITABLE STATIC CONSTANTS
   //
-  // The following constants SHOULD be set for each descendent class.  They are
+  // The following constants SHOULD be set for each descendant class.  They are
   // used by the static functions to provide information to Drupal about
   // the field and it's default widget and formatter.
   // --------------------------------------------------------------------------
 
-  // The default lable for this field.
+  // The default label for this field.
   public static $default_label = 'Germplasm Summary';
 
   // The default description for this field.

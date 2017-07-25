@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * Field Types are independant of Tripal Entity Types and, as such, can be used on multiple
- * Tripal Content Types. For example, Drupal Field types include "textfield", "image field",
+ * Field Types are independent of Tripal Entity Types and, as such, can be used on multiple
+ * Tripal Content Types. For example, Drupal Field types include "textfield", "imagefield",
  * etc. which obviously apply to multiple content types. A Field Instance refers to a
- * particular instantiation of of field type on a bundle. For example, the body of a
+ * particular instantiation of field type on a bundle. For example, the body of a
  * "Page" content type is a field instance of the textarea field type.
  */
 
