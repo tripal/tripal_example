@@ -49,13 +49,13 @@ class local__germplasm_summary extends ChadoField {
 
   // Provide a list of instance specific settings. These can be access within
   // the instanceSettingsForm.  When the instanceSettingsForm is submitted
-  // then Drupal with automatically change these settings for the instnace.
+  // then Drupal with automatically change these settings for the instance.
   // It is recommended to put settings at the instance level whenever possible.
   // If you override this variable in a child class be sure to replicate the
   // term_name, term_vocab, term_accession and term_fixed keys as these are
   // required for all TripalFields.
   public static $default_instance_settings = array(
-    // The short name for the vocabulary (e.g. shcema, SO, GO, PATO, etc.).
+    // The short name for the vocabulary (e.g. schema, SO, GO, PATO, etc.).
     'term_vocabulary' => 'local',
     // The name of the term.
     'term_name' => 'germplasm_summary',
@@ -67,8 +67,8 @@ class local__germplasm_summary extends ChadoField {
     // Indicates if this field should be automatically attached to display
     // or web services or if this field should be loaded separately. This
     // is convenient for speed.  Fields that are slow should for loading
-    // should ahve auto_attach set to FALSE so tha their values can be
-    // attached asyncronously.
+    // should have auto_attach set to FALSE so tha their values can be
+    // attached asynchronously.
     'auto_attach' => FALSE,
     // The table in Chado that the instance maps to.
     'chado_table' => 'organism',
@@ -85,7 +85,7 @@ class local__germplasm_summary extends ChadoField {
   public static $no_ui = FALSE;
 
   // A boolean specifying that the field will not contain any data. This
-  // should exclude the field from web serivces or downloads.  An example
+  // should exclude the field from web services or downloads.  An example
   // could be a quick search field that appears on the page that redirects
   // the user but otherwise provides no data.
   public static $no_data = FALSE;
@@ -99,7 +99,7 @@ class local__germplasm_summary extends ChadoField {
    *   An array of the following format:
    *     $entity->{$field_name}['und'][0]['value'] = $value;
    *   where:
-   *     - $entity is the enity object to which this field is attached.
+   *     - $entity is the entity object to which this field is attached.
    *     - $field_name is the name of this field
    *     - 'und' is the language code (in this case 'und' == undefined)
    *     - 0 is the cardinality.  Increment by 1 when more than one item is
