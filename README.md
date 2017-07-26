@@ -9,9 +9,9 @@ The Examples project contains many modules which hopefully illustrate best pract
 
 ## Current Examples:
 ### Tripal Fields
-This module provides examples for creating custom TripalFields and Chado Fields. In Tripal3 this is the preferred method to add custom content to Tripal Content Pages.
+This module provides examples for creating custom Tripal Fields and Chado Fields. In Tripal3 this is the preferred method to add custom content to Tripal Content Pages.
 Example Fields include:
-- Germplasm Summary on Organism Page: Exposes the organism_stock_counts materialized view in table form on organism pages as an example of how to use a ChadoField to retrieve results from a materialized view.
+- Germplasm Summary on Organism Page: Exposes the organism_stock_counts materialized view in table form on organism pages as an example of how to use a Chado Field to retrieve results from a materialized view.
 
 ## We want your input!
 Development on this module has just begun for Tripal 3.x. We would Love input on the issue queue regarding examples you would find useful!
