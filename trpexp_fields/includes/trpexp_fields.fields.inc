@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * @file
  * Contains all field specific code outside the classes.
  */
@@ -70,24 +70,25 @@ function trpexp_fields_bundle_fields_info($entity_type, $bundle) {
 /**
  * Implements hook_bundle_instances_info().
  *
- * This hook tells Drupal/Tripal to create a field instance of a given field type on a
- * specific Tripal Content type (otherwise known as the bundle). Make sure to implement
- * hook_bundle_create_fields() to create your field type before trying to create an
- * instance of that field.
+ * This hook tells Drupal/Tripal to create a field instance of a given field
+ * type on a specific Tripal Content type (otherwise known as the bundle). Make
+ * sure to implement hook_bundle_fields_info() to create your field type
+ * before trying to create an instance of that field.
  *
  * @param $entity_type
  *   This should be 'TripalEntity' for all Tripal Content.
  * @param $bundle
- *   This object describes the Type of Tripal Entity (e.g. Organism or Gene) the field
- *   instances are being created for. Thus this hook is called once per Tripal Content Type on your
- *   site. The name of the bundle is the machine name of the type (e.g. bio_data_1) and
- *   the label of the bundle (e.g. Organism) is what you see in the interface. Since the
- *   label can be changed by site admin, we suggest checking the data_table to determine
- *   if this is the entity you want to add field instances to.
+ *   This object describes the Type of Tripal Entity (e.g. Organism or Gene)
+ *   the field instances are being created for. Thus this hook is called once
+ *   per Tripal Content Type on your site. The name of the bundle is the
+ *   machine name of the type (e.g. bio_data_1) and the label of the bundle
+ *   (e.g. Organism) is what you see in the interface. Since the label can be
+ *   changed by site admin, we suggest checking the data_table to determine if
+ *   this is the entity you want to add field instances to.
  * @return
- *   An array of field instance definitions. This is where you can define the defaults
- *   for any settings you use in your field. Each entry in this array will be used to
- *   create an instance of an already existing field.
+ *   An array of field instance definitions. This is where you can define the
+ *   defaults for any settings you use in your field. Each entry in this array
+ *   will be used to create an instance of an already existing field.
  */
 function trpexp_fields_bundle_instances_info($entity_type, $bundle) {
   $instances = array();
