@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * TripalImporters are automatically discovered and do not need implementation
+ * of any hooks. Just create a class extending TripalImporter
+ * in includes/TripalImporters.
+ */

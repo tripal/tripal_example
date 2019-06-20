@@ -1,0 +1,7 @@
+name = Example Importers
+description = Provides examples for creating custom Tripal Importers for loading data.
+core = 7.x
+package = Tripal Example
+
+dependencies[] = tripal
+dependencies[] = tripal_chado
