@@ -94,7 +94,9 @@ class local__germplasm_summary_formatter extends ChadoFieldFormatter {
     $settings = $display['settings'];
 
     $rows = array();
-    foreach ($items[0]['value'] as $type => $count) {
+    foreach ($items[0]['value']['hydra:member'] as $details) {
+      $type = $details['rdfs:type'];
+      $count = $details['local:count'];
       $rows[] = array($type, number_format($count));
     }
 

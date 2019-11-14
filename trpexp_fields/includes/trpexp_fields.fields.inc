@@ -49,6 +49,12 @@ function trpexp_fields_bundle_fields_info($entity_type, $bundle) {
       'cv_name' => 'local',
       'definition' => 'A summary of the types of germplasm for a given organism.',
     ));
+    tripal_insert_cvterm(array(
+      'id' => 'local:count',
+      'name' => 'count',
+      'cv_name' => 'local',
+      'definition' => '',
+    ));
 
     // Then describe the field defined by that term.
     $field_name = 'local__germplasm_summary';
@@ -56,7 +62,7 @@ function trpexp_fields_bundle_fields_info($entity_type, $bundle) {
     $fields[$field_name] = array(
       'field_name' => $field_name,
       'type' => $field_type,
-      'cardinality' => 1,
+      'cardinality' => FIELD_CARDINALITY_UNLIMITED,
       'locked' => FALSE,
       'storage' => array(
         'type' => 'field_chado_storage',
@@ -92,7 +98,7 @@ function trpexp_fields_bundle_fields_info($entity_type, $bundle) {
  */
 function trpexp_fields_bundle_instances_info($entity_type, $bundle) {
   $instances = array();
-/**
+
   // ORGANISM.
   //===============
   if (isset($bundle->data_table) AND ($bundle->data_table == 'organism')) {
@@ -110,6 +116,9 @@ function trpexp_fields_bundle_instances_info($entity_type, $bundle) {
       'description' => 'Summarizes germplasm for this organism.',
       'required' => FALSE,
       'settings' => array(
+        'term_vocabulary' => 'local',
+        'term_name' => 'germplasm_summary',
+        'term_accession' => 'germplasm_summary',
         'auto_attach' => FALSE,
         'chado_table' => $bundle->data_table,
         'chado_column' => 'organism_id',
@@ -129,7 +138,6 @@ function trpexp_fields_bundle_instances_info($entity_type, $bundle) {
     );
 
   }
-*/
+
   return $instances;
 }
-

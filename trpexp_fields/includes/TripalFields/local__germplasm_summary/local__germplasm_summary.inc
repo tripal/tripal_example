@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * @class
  * Purpose:
  *
@@ -114,10 +114,9 @@ class local__germplasm_summary extends ChadoField {
    *   The array may contain as many other keys at the same level as 'value'
    *   but those keys are for internal field use and are not considered the
    *   value of the field.
-   *
-   *
    */
   public function load($entity) {
+    $field_name = $this->instance['field_name'];
 
     // ChadoFields automatically load the chado column specified in the
     // default settings above. If that is all you need then you don't even
@@ -126,17 +125,84 @@ class local__germplasm_summary extends ChadoField {
     parent::load($entity);
 
     // First, retrieve the chado organism_id for the current Tripal Content, as we requested.
-    $organism_id = $entity->local__germplasm_summary['und'][0]['chado-organism__organism_id'];
+    $organism_id = $entity->{$field_name}['und'][0]['chado-organism__organism_id'];
 
     // Then grab the information we need from the materialized view: organism_stock_count.
     // This materialized view is provided via tripal_chado :-).
     $results = chado_query(
       'SELECT stock_type, num_stocks FROM {organism_stock_count} WHERE organism_id=:id ORDER BY num_stocks DESC',
       array(':id' => $organism_id));
-    $entity->local__germplasm_summary['und'][0]['value'] = array();
+    $total_count = 0;
+    $entity->{$field_name}['und'][0]['value'] = array();
+    $entity->{$field_name}['und'][0]['value']['hydra:member'] = array();
     foreach ($results as $r) {
-      $entity->local__germplasm_summary['und'][0]['value'][ $r->stock_type ] = $r->num_stocks;
+      $entity->{$field_name}['und'][0]['value']['hydra:member'][] = [
+        'rdfs:type' => $r->stock_type,
+        'local:count' => $r->num_stocks,
+      ];
+      $total_count = $total_count + $r->num_stocks;
     }
+    $entity->{$field_name}['und'][0]['value']['local:count'] = $total_count;
+    dpm($entity->{$field_name}['und'][0], 'load');
 
+  }
+
+  /**
+   * @see ChadoField::elementInfo()
+   *
+   */
+  public function elementInfo() {
+    $field_term = $this->getFieldTermID();
+
+    return array(
+      $field_term => array(
+        'operations' => [],
+        'sortable' => FALSE,
+        'searchable' => FALSE,
+        'label' => 'Germplasm Summary',
+        'type' => 'xs:complexType',
+        'readonly' => TRUE,
+        'elements' => array(
+          'local:count' => array(
+            'searchable' => TRUE,
+            'name' => 'The total number of germplasm for this organism.',
+            'operations' => ['eq', 'ne', 'contains', 'starts'],
+            'sortable' => TRUE,
+            'readonly' => TRUE,
+            'type' => 'xs:string',
+            'required' => FALSE,
+          ),
+          'hydra:members' => array(
+            'searchable' => TRUE,
+            'name' => 'Breakdown of germplasm by type.',
+            'operations' => ['eq', 'ne', 'contains', 'starts'],
+            'sortable' => TRUE,
+            'readonly' => TRUE,
+            'type' => 'xs:string',
+            'required' => FALSE,
+            'elements' => array(
+              'rdfs:type' => array(
+                'searchable' => TRUE,
+                'name' => 'The type of germplasm.',
+                'operations' => ['eq', 'ne', 'contains', 'starts'],
+                'sortable' => TRUE,
+                'readonly' => TRUE,
+                'type' => 'xs:string',
+                'required' => FALSE,
+              ),
+              'local:count' => array(
+                'searchable' => TRUE,
+                'name' => 'The number of germplasm for this type.',
+                'operations' => ['eq', 'ne', 'contains', 'starts'],
+                'sortable' => TRUE,
+                'readonly' => TRUE,
+                'type' => 'xs:string',
+                'required' => FALSE,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
